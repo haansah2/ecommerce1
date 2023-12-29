@@ -1,0 +1,118 @@
+body{
+    margin:0;
+    padding:0;
+}
+.container{
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+    height:100vh;
+    background: url(./images/bmw.JPG) center/cover;
+    color:white;
+    font-family: sans-serif;
+    font-size: 1.89em;
+    text-align: center;
+    letter-spacing: 4px;
+    text-shadow: 1px 1px 4px black;
+    transition:filter .7s linear;
+    
+}
+.btn{
+    padding:10px 20px;
+    background-color: orangered;
+    border-radius: 10px;
+    width:200px;
+    cursor:pointer;
+    border:none;
+    box-shadow:1px 1px 4px black;
+    font-size:15px;
+
+
+}
+span{
+    display:flex;
+}
+.btn:hover{
+    filter:brightness(0.8)
+}
+.active.container{
+    filter: blur(5px) brightness(.7);
+    transition:filter .7s linear;
+}
+.pop-up{
+    position:fixed;
+    left:50%;
+    top:30%;
+    width:400px;
+    height:400px;
+    transform:translate(-50%, -50%);
+    background:url(images/motor.JPG) center/cover;
+    display:flex;
+    justify-content:center;
+    /* align-items:center; */
+    flex-direction:column;
+    padding:20px;
+    gap:1em;
+    border-radius: 10px;
+    box-shadow:1px 1px 4px black;
+    font-family: sans-serif;
+    visibility: hidden;
+    opacity:0;
+    
+    transition:all .5s linear;
+
+}
+form{
+    display:flex;
+    flex-direction:column;
+    color:rgb(119, 117, 117);
+    gap:.65em;
+
+}
+.active.pop-up{
+    visibility:visible;
+    opacity:1;
+    top:50%; 
+    transition:all .5s linear;
+}
+h4{
+    font-size: 20px;
+    color:blue;
+    text-align: center;
+}
+.pop-btn{
+    width:200px;
+    background: orangered;
+    border:none;
+    cursor:pointer;
+    padding: 10px ;
+    border-radius:5px;
+    box-shadow:1px 1px 4px black;
+}
+.divb {
+    align-items: center;
+    text-align: center;
+    display:flex;
+    justify-content: center;
+}
+.pop-btn:hover{
+    filter:brightness(0.8);
+}
+input{
+    border-radius:10px;
+    border:none;
+    padding:6px;
+    color:grey;
+    text-align:center;
+    box-shadow:1px 1px 4px black;
+}
+.close{
+    position:absolute;
+    top:20px;
+    right:20px;
+    cursor:pointer;
+}
+.close:hover{
+    color:grey;
+}

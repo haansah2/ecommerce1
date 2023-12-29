@@ -1,0 +1,167 @@
+{% comment %} {% for feature in features %}
+<h1>Mese KOKO ne KOOSE {{feature.name}}, {{feature.detail}}, {{feature.price}}</h1>
+{% endfor %} {% endcomment %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'ecom.css' %}">
+    <link rel="stylesheet" href="{% static 'font-6/css/all.css' %}">
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+
+        function getToken(name){
+            var cookieValue = null;
+            if(document.cookie && document.cookie !== ''){
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++){
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')){
+                        cookieValue = decodeURIComponent(cookie.substring(
+                            name.length + 1
+                        ));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken')
+
+        function getCookie(name){
+            var cookieArr = document.cookie.split(";");
+
+            for(var i = 0; i < cookieArr.length; i++){
+                var cookiePair = cookieArr[i].split("=");
+
+                if (name == cookiePair[0].trim()){
+                    return decodeURIComponent(cookiePair[1]);
+                }
+            }
+            return null;
+        }
+
+        var cart = JSON.parse(getCookie('cart'))
+        if(cart == undefined){
+            cart = {}
+            console.log('cart was created')
+            document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+        }
+        console.log('Cart:', cart)
+    </script>
+</head>
+<body>
+    <header>
+        <div class="first-header">
+            <div class="div1">
+                <div>
+                    <h4 class="amazon">Amazon</h4>
+                    <i class="fa-brands fa-amazon-pay fa-2x"></i>
+                </div>
+                {% if user.is_authenticated %}
+                <p>Welcome, <em>{{user.username}}.</p>
+                {% else %}
+                <p>Welcome,  <em>user . . </em></p>
+                {% endif %}
+            </div>
+            <div class="div2">
+                <form action="{% url 'search' %}" method=POST>
+                    {% csrf_token %}
+                    <input type="search" name="searched" id="inp" placeholder="search" >
+                    <button type="submit"><i class="fas fa-arrow-right"></i></button>
+                </form>
+                
+            </div>
+        </div>
+        <div class="second-header">
+            <div>
+                <div class="bar-row2">
+                    <a href="#">All</a>
+                    <a href="#">Today's Deals</a>
+                    <a href="#">Customer Service</a>
+                    <a href="#">Registry</a>
+                    <a href="#">Gift Cards</a>
+                    <a href="#">Sell</a>
+                </div>
+                <div class="phone-view">
+                    <input type="checkbox" id="input" class="input1">
+                    <label for="input">
+                        <i class="fas fa-bars bars"></i>
+                    </label>
+                    <div class="bar-row">
+                        <a href="#">All</a>
+                        <a href="#">Today's Deals</a>
+                        <a href="#">Customer Service</a>
+                        <a href="#">Registry</a>
+                        <a href="#">Gift Cards</a>
+                        <a href="#">Sell</a>
+                    </div>
+                </div>
+
+
+                <div class="cure">
+                    <a href="cart" class="cart-icon">
+                        cart
+                        <i class="fas fa-cart-shopping"></i>
+                        {% if cartItems %}
+                        <p>{{cartItems}}</p>
+                        {% endif %}
+                    </a>
+                    {% if user.is_authenticated %}
+                    <a href="logout" class="logout">logout </a>
+                    {% else %}
+                    <a href="register" class="register">Login/register</a>
+                    {% endif %}
+                </div>
+                
+            </div>
+        </div>
+    </header>  
+    <section>
+        <div class="caret">
+            <div class="car1">
+                <i class="fas fa-angle-left"></i>
+            </div>
+            <div class="car2">
+                <i class="fas fa-angle-right "></i>
+            </div>
+        </div>
+        <div class="carts-main">
+            {% comment %} {% for post in posts %}
+                <a href="{% url 'post' post %}">post</a>
+            {% endfor %} {% endcomment %}
+            {% for product in products %}
+            <a href="" class="href">
+                <div class="cart-insider">
+                    <div class="cart">
+                        <div class="abs">
+                            {{product.name}}</div>
+                        <img src="{{product.imageURL}}" alt="">
+                        <div class="hey">
+                            <navbar class="seemore">See more</navbar>
+                            <button data-product={{product.id}} data-action="add" class="update-cart update" > Add to Cart</button>
+                            
+                        </div>
+                    </div>
+                    <div class="description">
+                        <i class="fas fa-caret-down caret1 "></i>
+                        <div>
+                            <p>Commodity: {{product.name}}  </p>
+                            <p>Price:  GHs {{product.price}}  </p>
+                            <p>Detail:  {{product.detail}} </p>
+                            
+                        </div>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+    <script src="{% static 'ecom1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'cart.js' %}"></script>
+</body>
+</html> 

@@ -1,0 +1,45 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'blur.css' %}">
+    <link rel="stylesheet" href="{% static 'font-6/css/all.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to our website</h1>
+        <button class="btn">Click to login</button>
+    </div>
+    <div class="pop-up ">
+        <h4>Please Login here</h4>
+        
+        {% for message in messages %}
+        <h5>{{message}}</h5>
+        {% endfor %}
+
+        <form method="POST" action="login" >
+            {% csrf_token %}
+            
+            <input type="email" name="email" placeholder="Enter Your Email" /><br/>
+            
+            <input type="text" name="username" placeholder="Enter Your username" /><br/>
+
+            <input type="password" name="password" placeholder="Enter Your password" /><br/>
+            
+            <input type="password" name="password2" placeholder="Enter Your password" /><br/>
+            <input type="submit" />
+
+            <div class="close-icon">
+                <i class="fa-solid fa-close close"></i>
+            </div>
+        </form>
+    </div>
+
+    <script src="{% static 'blur.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+zenti
+jhbjhbkbhjbkjh
+656677
+
+
+la, bu, do, lot, che, nis, zenti
+
+
+
+
+
+{% comment %} <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD&disable-funding=credit,venmo"></script> {% endcomment %}
+    {% comment %} <script src="https://www.paypal.com/sdk/js?client-id=AYzjcAOspml8ns_K0J7lFmIEvZ1NrWAY9ulUFFgDK_W5ao3B5Y5KVAulPdKDqMHifQfRCg2QH_tV7fU2&currency=USD&disable-funding=credit,venmo"></script> {% endcomment %}
+
+    {% comment %} paypal api keys {% endcomment %}
+    {% comment %} sandbox api key: AYzjcAOspml8ns_K0J7lFmIEvZ1NrWAY9ulUFFgDK_W5ao3B5Y5KVAulPdKDqMHifQfRCg2QH_tV7fU2 {% endcomment %}
+    {% comment %} live api key:    AQIufb-et9q4TfQnM9yde4IWKAeAIHJQqpk8BTdJ28L04QAz1AElRFvGwYmZVHUwgfb46kMxGoqJ6AAg {% endcomment %}
+{% comment %} 
+    <script>
+        // Render the PayPal button into #paypal-button-container
+        var total = '{{order.get_cart_total}}'
+        paypal.Buttons({
+
+            // Call your server to set up the transaction
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            //value: '0.01'
+                            value: parseFloat(total).toFixed(2)
+                        }
+                    }]
+                })
+            },
+
+            // Call your server to finalize the transaction
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details){
+                    submitFormData()
+                });
+            }
+
+        }).render('#paypal-button-container');
+    </script> {% endcomment %}
+
+
+
+
+
+
+    {% comment %} <div id="paypal-button-container"></div> {% endcomment %}
+                    {% comment %} <button id="make-payment">Make Payment</button> {% endcomment %}

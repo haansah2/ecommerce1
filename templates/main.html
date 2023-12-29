@@ -1,0 +1,83 @@
+
+{% load static %}     
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'ecom.css' %}">
+    <link rel="stylesheet" href="{% static 'font-6/css/all.css' %}">
+    <script type="text/javascript">
+        var user = '{{request.user}}'
+
+        function getToken(name){
+            var cookieValue = null;
+            if(document.cookie && document.cookie !== ''){
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++){
+                    var cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')){
+                        cookieValue = decodeURIComponent(cookie.substring(
+                            name.length + 1
+                        ));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getToken('csrftoken')
+    </script>
+</head>
+<body>
+    <header>
+        <div class="first-header">
+            <div class="div1">
+                <p>Amazon</p>
+                <p><i class="fas fa-location"></i>
+                    Deliver to Ghana</p>
+                {% if user.is_authenticated %}
+                <p>welcome {{user.username}} </p>
+                {% else %}
+                <p>welcome, shit Head</p>
+                {% endif %}
+            </div>
+            <div class="div2">
+                <input type="search" name="search" id="inp">
+            </div>
+        </div>
+        <div class="second-header">
+            <div>
+                <i class="fas fa-bars"></i>
+                <a href="#">All</a>
+                <a href="#">Today's Deals</a>
+                <a href="#">Customer Service</a>
+                <a href="#">Registry</a>
+                <a href="#">Gift Cards</a>
+                <a href="#">Sell</a>
+                <div class="cure">
+                    <a href="cart" class="cart-icon">
+                        cart
+                        <i class="fas fa-cart-shopping"></i>
+                        {% if cartItems %}
+                        <p>{{cartItems}}</p>
+                        {% endif %}
+                    </a>
+                    {% if user.is_authenticated %}
+                    <a href="logout" class="logout">logout </a>
+                    {% else %}
+                    <a href="register" class="register">Login/register</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+    <section>
+        {% block content%}
+        {% endblock content%}
+    </section>
+    <script src="{% static 'ecom1.js' %}"></script>
+    <script type="text/javascript" src="{% static 'cart.js' %}"></script>
+</body>
+</html>
